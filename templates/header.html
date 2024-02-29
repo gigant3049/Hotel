@@ -1,14 +1,13 @@
 {% load static %}
 <header class="header-area">
-
-    <div class="search-form d-flex align-items-center">
-        <div class="container">
-            <form action="https://preview.colorlib.com/theme/roberto/index.html" method="get">
-                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Type your keyword ...">
-                <button type="submit"><i class="icon_search"></i></button>
-            </form>
-        </div>
-    </div>
+{#    <div class="search-form d-flex align-items-center">#}
+{#        <div class="container">#}
+{#            <form action="https://preview.colorlib.com/theme/roberto/index.html" method="get">#}
+{#                <input type="search" name="search-form-input" id="searchFormInput" placeholder="Type your keyword ...">#}
+{#                <button type="submit"><i class="icon_search"></i></button>#}
+{#            </form>#}
+{#        </div>#}
+{#    </div>#}
 
     <div class="top-header-area">
         <div class="container">
@@ -56,22 +55,11 @@
 
                         <div class="classynav">
                             <ul id="nav">
-                                <li class="active"><a href="#">Home</a></li>
-                                <li><a href="#">Rooms</a></li>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Pages</a>
-                                    <ul class="dropdown">
-                                        <li><a href="#">- Home</a></li>
-                                        <li><a href="#">- Rooms</a></li>
-                                        <li><a href="#">- Single Rooms</a></li>
-                                        <li><a href="#">- About Us</a></li>
-                                        <li><a href="#">- Blog</a></li>
-                                        <li><a href="#">- Single Blog</a></li>
-                                        <li><a href="#">- Contact</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">News</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li class="active"><a href="{% url 'home:home' %}">Home</a></li>
+                                <li><a href="{% url 'room:room' %}">Rooms</a></li>
+                                <li><a href="{% url 'home:about' %}">About Us</a></li>
+                                <li><a href="{% url 'blog:blog' %}">News</a></li>
+                                <li><a href="{% url 'contact:contact' %}">Contact</a></li>
                             </ul>
 
                             <div class="search-btn ml-4">

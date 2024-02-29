@@ -11,7 +11,7 @@ class Services(models.Model):
 
 class Testimonials(models.Model):
     title = models.CharField(max_length=225)
-    image = models.ImageField(upload_to='media/home')
+    image = models.ImageField(upload_to='media/home', null=True, blank=True)
     content = models.TextField()
     signature = models.ImageField(upload_to='media/home')
 
@@ -28,6 +28,7 @@ class Feedback(models.Model):
     name = models.CharField(max_length=225)
     content = models.TextField()
     image = models.ImageField(upload_to='media/home', blank=True, null=True)
+    created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

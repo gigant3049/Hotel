@@ -27,12 +27,11 @@
     <div class="container-fluid">
         <div class="google-maps-contact-content">
             <div class="row">
-
                 <div class="col-6 col-lg-3">
                     <div class="single-contact-info">
                         <i class="fa fa-phone" aria-hidden="true"></i>
                         <h4>Phone</h4>
-                        <p>+01-234-567-890</p>
+                        <p>{{ contactData.phone }}</p>
                     </div>
                 </div>
 
@@ -40,7 +39,7 @@
                     <div class="single-contact-info">
                         <i class="fa fa-map-marker" aria-hidden="true"></i>
                         <h4>Address</h4>
-                        <p>Iris Watson, 283 Fusce Rd,NY</p>
+                        <p>{{ contactData.address }}</p>
                     </div>
                 </div>
 
@@ -48,7 +47,7 @@
                     <div class="single-contact-info">
                         <i class="fa fa-clock-o" aria-hidden="true"></i>
                         <h4>Open time</h4>
-                        <p>10:00 am to 23:00 pm</p>
+                        <p>{{ contactData.open_from }} to {{ contactData.open_to }}</p>
                     </div>
                 </div>
 
@@ -56,14 +55,13 @@
                     <div class="single-contact-info">
                         <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         <h4>Email</h4>
-                        <p>Info.colorlib @gmail.com</p>
+                        <p>{{ contactData.email }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="google-maps">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d82774.69671830302!2d24.077286625210185!3d56.96328499537209!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46eecfb0e5073ded%3A0x400cfcd68f2fe30!2sRiga%2C+Latvia!5e0!3m2!1sen!2sbd!4v1549536732147"
-                        allowfullscreen></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3476.585224553198!2d69.28504314633285!3d41.35542864216406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38aef3874b503727%3A0x87d7b3568c7badc8!2sFarobiy%20IT%20Academy!5e1!3m2!1sen!2s!4v1708421532489!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>

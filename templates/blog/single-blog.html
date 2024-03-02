@@ -70,53 +70,31 @@
                     </div>
 
                     <div class="comment_area mb-50 clearfix">
-                        <h2>02 Comments</h2>
+                        <h2>{{ comments.values.count }} Comments</h2>
                         <ol>
-                            <li class="single_comment_area">
+                            {% for comment in comments %}
 
-{#                                <div class="comment-content d-flex">#}
-{#                                    {% for comment in comments %}#}
-{#                                        {% if comment.image %}#}
-{#                                            <div class="comment-author">#}
-{#                                                <img src="{{ comment.image.url }}" alt="author">#}
-{#                                            </div>#}
-{#                                        {% else %}#}
-{#                                            <div class="comment-author">#}
-{#                                                <img src="{% static 'img/profile_default.png' %}" alt="author">#}
-{#                                            </div>#}
-{#                                        {% endif %}#}
-{#                                        <div class="comment-meta">#}
-{#                                            <a href="#" class="post-date">{{ comment.created_date|date:date_format }}</a>#}
-{#                                            <h5>{{ comment.name }}</h5>#}
-{#                                            <p>{{ comment.content }}</p>#}
-{#                                        </div>#}
-{#                                        <ol class="children">#}
-{#                                            <li class="single_comment_area">#}
-{#                                                <div class="comment-content d-flex">#}
-{#                                                    {% if comment.children %}#}
-{#                                                        <div class="comment-author">#}
-{#                                                            <img src="{% static 'img/bg-img/41.jpg' %}" alt="author">#}
-{#                                                        </div>#}
-{##}
-{#                                                        <div class="comment-meta">#}
-{#                                                            <a href="#" class="post-date">27 Aug 2018</a>#}
-{#                                                            <h5>John Doe</h5>#}
-{#                                                            <p>Neque porro quisquam est, qui dolorem ipsum quia dolor#}
-{#                                                                sit#}
-{#                                                                amet,#}
-{#                                                                consectetu adipisci velit, sed quia non numquam eius#}
-{#                                                                modi</p>#}
-{#                                                            <a href="#" class="like">Like</a>#}
-{#                                                            <a href="#" class="reply">Reply</a>#}
-{#                                                        </div>#}
-{#                                                    {% endif %}#}
-{##}
-{#                                                </div>#}
-{#                                            </li>#}
-{#                                        </ol>#}
-{#                                    {% endfor %}#}
-{#                                </div>#}
-                            </li>
+                                <li class="single_comment_area">
+
+                                    <div class="comment-content d-flex">
+                                        {% if comment.image %}
+                                            <div class="comment-author">
+                                                <img src="{{ comment.image.url }}" alt="author">
+                                            </div>
+                                        {% else %}
+                                            <div class="comment-author">
+                                                <img src="{% static 'img/profile_default.png' %}" alt="author">
+                                            </div>
+                                        {% endif %}
+                                        <div class="comment-meta">
+                                            <a href="#"
+                                               class="post-date">{{ comment.created_date|date:date_format }}</a>
+                                            <h5>{{ comment.name }}</h5>
+                                            <p>{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
                         </ol>
                     </div>
 

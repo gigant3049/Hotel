@@ -42,6 +42,7 @@ class Instagram(models.Model):
 
 
 class Comment(models.Model):
+    article = models.ForeignKey('Article', on_delete=models.CASCADE, related_name='article')
     parent = models.ForeignKey('self', models.SET_NULL, null=True, blank=True)
     top_level_comment_id = models.IntegerField(null=True, blank=True)
     name = models.CharField(max_length=225)

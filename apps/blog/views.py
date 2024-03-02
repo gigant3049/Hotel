@@ -42,7 +42,7 @@ class BlogDetailView(DetailView, CreateView):
         sub_articles = article.sub_article.all()
         article_tags = article.tags.all()
         tags = Tag.objects.all()
-        comments = Comment.objects.all()
+        comments = Comment.objects.filter(article_id=article.id, top_level_comment_id__isnull=True).order_by('-id')
         context['comments'] = comments
         context['article'] = article
         context['sub_articles'] = sub_articles

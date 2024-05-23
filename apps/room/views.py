@@ -1,10 +1,13 @@
 from django.core.paginator import Paginator
 from django.db.models import Q
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.views.generic import ListView
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
 from django.shortcuts import get_object_or_404
+
 from apps.home.models import Feedback
 from .forms import BookingForm
 from .models import Room, Services, RoomReview, Booking
@@ -43,36 +46,54 @@ class RoomView(ListView):
         return render(request, self.template_name, context)
 
 
-class SingleRoomView(ListView):
+class SingleRoomView(FormMixin, DetailView):
     model = Room
     template_name = 'room/single-room.html'
     context_object_name = 'room'
+    form_class = BookingForm
+
+    def get_success_url(self):
+        return self.request.path
 
     def post(self, request, *args, **kwargs):
-        form = BookingForm(request.POST)
+        self.object = self.get_object()
+        form = self.get_form()
         if form.is_valid():
-            room_slug = form.cleaned_data['room']
-            check_in = form.cleaned_data['check_in']
-            check_out = form.cleaned_data['check_out']
-            adults = form.cleaned_data['adults']
-            children = form.cleaned_data['children']
+            return self.form_valid(form)
+        else:
+            return self.form_invalid(form)
+
+    def form_valid(self, form):
+        room_slug = self.kwargs.get('slug')
+        check_in = form.cleaned_data['check_in']
+        check_out = form.cleaned_data['check_out']
+        adults = form.cleaned_data['adults']
+        children = form.cleaned_data['children']
+        print(room_slug)
+        try:
             room = Room.objects.get(slug=room_slug)
+        except Room.DoesNotExist:
+            messages.error(self.request, 'The specified room does not exist.')
+            return self.form_invalid(form)
 
-            if not room.is_available(check_in, check_out):
-                form.add_error(None, 'The selected room is not available for the specified dates.')
-                return self.form_invalid(form)
+        if check_in and check_out:
+            Booking.objects.create(
+                room=room,
+                check_in=check_in,
+                check_out=check_out,
+                adults=adults,
+                children=children
+            )
+            messages.success(self.request, 'The room has been successfully booked!')
+            return redirect(self.get_success_url())
 
-            booking = Booking.objects.create(room=room, check_in=check_in, check_out=check_out, adults=adults, children=children)
-
-            booking.save()
-            return super().form_valid(form)
+        return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
-        context = super(SingleRoomView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         context['rooms_images'] = Room.objects.order_by('-id')[:5]
-        context['room'] = get_object_or_404(Room, slug=self.kwargs['slug'])
         context['services'] = Services.objects.order_by('-id')[:6]
         context['reviews'] = RoomReview.objects.order_by('-id')[:3]
         context['date_format'] = "M d, Y"
+        context['form'] = self.get_form()
         return context
-
